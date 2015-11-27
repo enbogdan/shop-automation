@@ -71,12 +71,16 @@
 						<test.config>${test.config.path}/${test.env}.properties</test.config>
 					</systemPropertyVariables>
 					<testFailureIgnore>true</testFailureIgnore>
+					<parallel>methods</parallel>
+					<threadCountMethods>2</threadCountMethods>
+					<useUnlimitedThreads>true</useUnlimitedThreads>
+					<perCoreThreadCount>false</perCoreThreadCount>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>net.masterthought</groupId>
 				<artifactId>maven-cucumber-reporting</artifactId>
-				<version>0.0.5</version>
+				<version>0.0.6</version>
 				<executions>
 					<execution>
 						<id>execution</id>
@@ -85,8 +89,8 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<projectName>Eshop Cucumber Automation</projectName>
-							<outputDirectory>${project.build.directory}/cucumber-html-report</outputDirectory>
+							<projectName>${project.name}</projectName>
+							<outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
 							<cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
 							<enableFlashCharts>false</enableFlashCharts>
 						</configuration>

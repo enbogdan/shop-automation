@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,13 +15,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestBase {
-	protected static final String appURL = "APP_URL";
-	protected static final String browser = "BROWSER";
-	protected static final String chromeDriver = "CHROME_DRIVER";
+	private static final String appURL = "APP_URL";
+	private static final String browser = "BROWSER";
+	private static final String chromeDriver = "CHROME_DRIVER";
+	private static final String implicitWait = "SELENIUM_IMPLICIT_WAIT";
 
 	private static Properties properties;
 	private WebDriver driver;
 
+	// properties should be synchronized, made thread safe. one thread setup
+	// could write properties, other thread could read properties
 	private static void loadProperties() {
 		String propsPath = System.getProperty("test.config");
 		if (propsPath == null)
@@ -42,17 +46,21 @@ public class TestBase {
 		loadProperties();
 	}
 
+	// should be improved to support multiple browsers in the same execution
 	@Before
 	public void setUpTest() {
 		System.out.println("@BeforeTest");
+		int implicitWaitSeconds = Integer.parseInt(properties
+				.getProperty(implicitWait));
 		driver = initWebDriver(properties.getProperty(browser));
+		driver.manage().timeouts()
+				.implicitlyWait(implicitWaitSeconds, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 
 	@After
-	public void tearDown() throws InterruptedException {
+	public void tearDown() {
 		System.out.println("@AfterTest - tearDown");
-		Thread.sleep(2000);
 		driver.close();
 	}
 
