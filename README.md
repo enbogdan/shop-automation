@@ -12,5 +12,6 @@ Optional Maven parameters:
 
 	eg: mvn clean install -Dtest.env=env-qa
 	
-* For checking if approach is thread safe, 3 tests are defined and execution configured for 2 tests.
+* For checking if approach is thread safe, 3 tests are defined and execution configured for 2 threads.
 * Using reporting plugin for Cucumber improved reporting
+* Chrome driver is included in solution, but driver path for other browsers should be configure in env
