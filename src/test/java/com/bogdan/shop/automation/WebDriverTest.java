@@ -10,7 +10,7 @@ import com.bogdan.shop.automation.pageobjects.SearchResultsPage;
 
 public class WebDriverTest extends TestBase {
 	
-	@Test
+	//@Test
 	public void test() {
 		HomePage home = new HomePage(getDriver());
 		home.openPage();

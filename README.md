@@ -1,7 +1,7 @@
 Dependencies:
 
 * [Maven 3](http://maven.apache.org) or above installed
-* At least Java 1.7
+* [Java 1.7](http://www.oracle.com/technetwork/java/javase/downloads/index.html) or above
 
 Tests run automatically in the default environment (env-qa) after starting the build:
 
